@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { Button, Dropdown, Input, Table } from 'semantic-ui-react'
 
+const SpacedDiv = ({children}) => <div style={{margin: '10px 0'}}>{children}</div>
 export default function Home() {
   useEffect(() => {
     setTimeout(() => {
@@ -145,20 +147,41 @@ export default function Home() {
         </div>
       </main>
       {tutors.length === 0 ? null : (
-        <div ref={ref} className="bg-white">
-          <div className="mx-auto grid lg:grid-cols-3 gap-8 py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
-            {tutors.map((people, i) => (<div key={i} className="h-32 overflow-clip rounded-lg border border-indigo-500 flex">
-              <figure className="w-32 overflow-clip h-full">
-                <img src={people?.tutor?.photo} className="w-full h-full overflow-clip object-fill"/>
-              </figure>
-              <div className="p-6">
-                <p className="text-xl text-indigo-500 font-bold">{people.tutor.first_name} {people.tutor.last_name}</p>
-                <p className="text-sm text-gray-500 font-bold">{people.tutor.email}</p>
-                <p className="text-sm text-gray-500 font-bold">{people.tutor.phone}</p>
-              </div>
-            </div>))}
-          </div>
-        </div>
+        <section ref={ref} className="h-screen p-8">
+        <SpacedDiv>
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Name</Table.HeaderCell>
+              <Table.HeaderCell>Phone</Table.HeaderCell>
+              <Table.HeaderCell>Email</Table.HeaderCell>
+              <Table.HeaderCell>Distance</Table.HeaderCell>
+              <Table.HeaderCell>Directions</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+            {tutors.map(people => (
+              <Table.Row>
+                <Table.Cell>{people.tutor.first_name} {people.tutor.last_name}</Table.Cell>
+                <Table.Cell>{people.tutor.phone}</Table.Cell>
+                <Table.Cell>{people.tutor.email}</Table.Cell>
+                <Table.Cell>{Math.round(people.distance*100)/100} km</Table.Cell>
+                <Table.Cell>
+                  <Button onClick={() => {
+                    const url = `https://www.google.com/maps/dir/?api=1&origin=${people.currentLocation.lat},${people.currentLocation.lng}&destination=${people.tutorLocation.lat},${people.tutorLocation.lng}`
+                    window.open(url, '_blank')
+                  }}>
+                    Go
+                  </Button>
+
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </SpacedDiv>
+      </section>
       )}
     </>
   );
