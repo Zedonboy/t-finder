@@ -147,7 +147,7 @@ export default function Home() {
       {tutors.length === 0 ? null : (
         <div ref={ref} className="bg-white">
           <div className="mx-auto grid lg:grid-cols-3 gap-8 py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
-            {tutors.map(people => (<div className="h-32 overflow-clip rounded-lg border border-indigo-500 flex">
+            {tutors.map((people, i) => (<div key={i} className="h-32 overflow-clip rounded-lg border border-indigo-500 flex">
               <figure className="w-32 overflow-clip h-full">
                 <img src={people?.tutor?.photo} className="w-full h-full overflow-clip object-fill"/>
               </figure>
