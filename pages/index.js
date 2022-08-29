@@ -38,7 +38,7 @@ export default function Home() {
                 setSearching(true);
                 let task = async () => {
                   let resp = await fetch(
-                    "http://tutoronestrapi-env.eba-snq2sphf.eu-west-2.elasticbeanstalk.com/api/tutors/find-by-postal-code?" +
+                    "https://finder.tutor1.ca/api/tutors/find-by-postal-code?" +
                       new URLSearchParams({
                         postalCode,
                         ...(parseInt(radius) > 0 ? {radius} : undefined)
