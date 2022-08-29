@@ -12,6 +12,7 @@ export default function Home() {
   let [postalCode, setPostalCode] = useState("");
   let [tutors, setTutors] = useState([]);
   let [searching, setSearching] = useState(false);
+  let [radius, setRadius] = useState(0)
   let ref = useRef();
   return (
     <>
@@ -40,6 +41,7 @@ export default function Home() {
                     "http://tutoronestrapi-env.eba-snq2sphf.eu-west-2.elasticbeanstalk.com/api/tutors/find-by-postal-code?" +
                       new URLSearchParams({
                         postalCode,
+                        ...(parseInt(radius) > 0 ? {radius} : undefined)
                       })
                   );
 
@@ -72,7 +74,7 @@ export default function Home() {
               >
                 Search
               </label>
-              <div className="relative">
+              <div className="relative flex">
                 <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                   <svg
                     aria-hidden="true"
@@ -100,11 +102,22 @@ export default function Home() {
                   placeholder="Postal Code"
                   required
                 />
+                 <input
+                  type="number"
+                  onChange={(e) => {
+                    if(isNaN(parseInt(e.target.value))) return
+                    setRadius(e.target.value)
+                  }}
+                  id="default-radius"
+                  className="block p-4 pl-10 w-full outline-none text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
+                  placeholder="Radius in meters"
+                  required
+                />
                 {searching ? (
                   <svg
                     aria-hidden="true"
-                    className="mr-2 w-8 h-8 text-gray-200 animate-spin fill-blue-600"
-                    viewBox="0 0 100 101"
+                    className="w-8 h-8 text-gray-200 animate-spin fill-blue-600"
+                    viewBox="0 0 20 20"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
