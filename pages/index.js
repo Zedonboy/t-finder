@@ -217,9 +217,9 @@ export default function Home() {
                     filters: {
                       ...(function(){
                         let rslt = ""
-                        if(state.course !== "all") rslt + state.course
+                        if(state.course !== "all") rslt = rslt + state.course
 
-                        if(state.subject !== "all") rslt + " " + state.subject
+                        if(state.subject !== "all") rslt = rslt + " " + state.subject
                         
                         return {
                           subjects: {
