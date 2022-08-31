@@ -236,15 +236,7 @@ export default function Home() {
                 let data = await resp.json();
                 if (data && data.length > 0) {
                   setTutors(data.map(d => ({tutor: d.attributes, distance: d.distance})))
-                  // setTimeout(() => {
-                  //   ref.current.scrollIntoView({
-                  //     behavior: "smooth",
-                  //   });
-                  //   // window.scrollBy({
-                  //   //   top: ref.current
-                  //   //   behavior:"smooth"
-                  //   // })
-                  // }, 2000);
+                 
                 }
               }
             };
