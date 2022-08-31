@@ -275,7 +275,7 @@ export default function Home() {
                     <Table.Cell>
                       <Button
                         onClick={() => {
-                          const url = `https://www.google.com/maps/dir/?api=1&origin=${people.currentLocation.lat},${people.currentLocation.lng}&destination=${people.tutorLocation.lat},${people.tutorLocation.lng}`;
+                          const url = `https://www.google.com/maps/dir/?api=1&origin=${people.currentLocation.lat},${people.currentLocation.lng}&destination=${people.tutor.lat},${people.tutor.lng}`;
                           window.open(url, "_blank");
                         }}
                       >
