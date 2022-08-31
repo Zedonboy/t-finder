@@ -1,0 +1,1 @@
+export const API_URL = process.env.NODE_ENV === "production" ? "https://finder.tutor1.ca/api" : "http://localhost:1337/api"

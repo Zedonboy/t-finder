@@ -1,24 +1,57 @@
 import { useEffect, useRef, useState } from "react";
-import { Button, Dropdown, Input, Table } from 'semantic-ui-react'
-
-const SpacedDiv = ({children}) => <div style={{margin: '10px 0'}}>{children}</div>
+import { Button, Dropdown, Input, Table } from "semantic-ui-react";
+import { API_URL } from "../config";
+const qs = require("qs")
+const INITIAL_STATE = {
+  subject: "",
+  course: "",
+  postalCode: "",
+};
+const SpacedDiv = ({ children }) => (
+  <div style={{ margin: "10px 0" }}>{children}</div>
+);
 export default function Home() {
   useEffect(() => {
-    setTimeout(() => {
-      let video = document.getElementById("video-bg");
-      video.muted = true;
-      video.play();
-    }, 2000);
+    let task = async () => {
+      let subjectResp = await fetch(`${API_URL}/subjects`);
+      let coursesResp = await fetch(`${API_URL}/courses`);
+
+      if (subjectResp.ok) {
+        let data = await subjectResp.json();
+        let dt = data.data;
+        let dx = dt
+          .map((d) => d.attributes)
+          .map((d) => ({ text: d.name, value: d.name }));
+        console.log(dx);
+        dx = [{ text: "All", value: "all" }, ...dx];
+        setSubjects(dx);
+      }
+
+      if (coursesResp.ok) {
+        let data = await coursesResp.json();
+        let dt = data.data;
+        let dx = dt
+          .map((d) => d.attributes)
+          .map((d) => ({ text: d.name, value: d.name }));
+        console.log(dx);
+        dx = [{ text: "All", value: "all" }, ...dx];
+        setCourses(dx);
+      }
+    };
+
+    task();
   }, []);
 
   let [postalCode, setPostalCode] = useState("");
   let [tutors, setTutors] = useState([]);
   let [searching, setSearching] = useState(false);
-  let [radius, setRadius] = useState(0)
+  let [subjects, setSubjects] = useState([]);
+  let [courses, setCourses] = useState([]);
+  let [state, setState] = useState(INITIAL_STATE);
   let ref = useRef();
   return (
     <>
-      <main className="h-screen w-full relative">
+      {/* <main className="h-screen w-full relative">
         <video
           id="video-bg"
           src="/video/intro.mov"
@@ -145,43 +178,124 @@ export default function Home() {
             </form>
           </div>
         </div>
-      </main>
+      </main> */}
+      <div className="p-8">
+        <SpacedDiv>
+          <Dropdown
+            placeholder="Select Subject"
+            selection
+            options={subjects}
+            onChange={(e, data) => setState({ ...state, subject: data.value })}
+          />
+        </SpacedDiv>
+
+        <SpacedDiv>
+          <Dropdown
+            placeholder="Select Course"
+            selection
+            options={courses}
+            onChange={(e, data) => setState({ ...state, course: data.value })}
+          />
+        </SpacedDiv>
+
+        <SpacedDiv>
+          <Input
+            placeholder="Address Or Postal Code"
+            onChange={(_, { value }) => setPostalCode(value)}
+          />
+        </SpacedDiv>
+
+        <Button
+          primary
+          onClick={(e) => {
+            let task = async () => {
+              let resp = await fetch(
+                `${API_URL}/tutors?` +
+                  qs.stringify({
+                    postalCode,
+                    field: "*",
+                    filters: {
+                      ...(function(){
+                        let rslt = ""
+                        if(state.course !== "all") rslt + state.course
+
+                        if(state.subject !== "all") rslt + " " + state.subject
+                        
+                        return {
+                          subjects: {
+                            $containsi: rslt
+                          }
+                        }
+
+                      }())
+                    }
+                  })
+              );
+
+              if (resp.ok) {
+                let data = await resp.json();
+                if (data && data.length > 0) {
+                  setTutors(data.map(d => ({tutor: d.attributes, distance: d.distance})))
+                  // setTimeout(() => {
+                  //   ref.current.scrollIntoView({
+                  //     behavior: "smooth",
+                  //   });
+                  //   // window.scrollBy({
+                  //   //   top: ref.current
+                  //   //   behavior:"smooth"
+                  //   // })
+                  // }, 2000);
+                }
+              }
+            };
+
+            task()
+          }}
+        >
+          Find Tutors
+        </Button>
+      </div>
       {tutors.length === 0 ? null : (
         <section ref={ref} className="h-screen p-8">
-        <SpacedDiv>
-        <Table celled>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Phone</Table.HeaderCell>
-              <Table.HeaderCell>Email</Table.HeaderCell>
-              <Table.HeaderCell>Distance</Table.HeaderCell>
-              <Table.HeaderCell>Directions</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
+          <SpacedDiv>
+            <Table celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Name</Table.HeaderCell>
+                  <Table.HeaderCell>Phone</Table.HeaderCell>
+                  <Table.HeaderCell>Email</Table.HeaderCell>
+                  <Table.HeaderCell>Distance</Table.HeaderCell>
+                  <Table.HeaderCell>Directions</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
 
-          <Table.Body>
-            {tutors.map(people => (
-              <Table.Row>
-                <Table.Cell>{people.tutor.first_name} {people.tutor.last_name}</Table.Cell>
-                <Table.Cell>{people.tutor.phone}</Table.Cell>
-                <Table.Cell>{people.tutor.email}</Table.Cell>
-                <Table.Cell>{Math.round(people.distance*100)/100} km</Table.Cell>
-                <Table.Cell>
-                  <Button onClick={() => {
-                    const url = `https://www.google.com/maps/dir/?api=1&origin=${people.currentLocation.lat},${people.currentLocation.lng}&destination=${people.tutorLocation.lat},${people.tutorLocation.lng}`
-                    window.open(url, '_blank')
-                  }}>
-                    Go
-                  </Button>
-
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-      </SpacedDiv>
-      </section>
+              <Table.Body>
+                {tutors.map((people) => (
+                  <Table.Row>
+                    <Table.Cell>
+                      {people.tutor.first_name} {people.tutor.last_name}
+                    </Table.Cell>
+                    <Table.Cell>{people.tutor.phone}</Table.Cell>
+                    <Table.Cell>{people.tutor.email}</Table.Cell>
+                    <Table.Cell>
+                      {Math.round(people.distance * 100) / 100} km
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Button
+                        onClick={() => {
+                          const url = `https://www.google.com/maps/dir/?api=1&origin=${people.currentLocation.lat},${people.currentLocation.lng}&destination=${people.tutorLocation.lat},${people.tutorLocation.lng}`;
+                          window.open(url, "_blank");
+                        }}
+                      >
+                        Go
+                      </Button>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
+          </SpacedDiv>
+        </section>
       )}
     </>
   );
