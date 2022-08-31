@@ -262,8 +262,8 @@ export default function Home() {
               </Table.Header>
 
               <Table.Body>
-                {tutors.map((people) => (
-                  <Table.Row>
+                {tutors.map((people, i) => (
+                  <Table.Row key={i}>
                     <Table.Cell>
                       {people.tutor.first_name} {people.tutor.last_name}
                     </Table.Cell>
