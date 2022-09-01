@@ -22,7 +22,6 @@ export default function Home() {
         let dx = dt
           .map((d) => d.attributes)
           .map((d) => ({ text: d.name, value: d.name }));
-        console.log(dx);
         dx = [{ text: "All", value: "all" }, ...dx];
         setSubjects(dx);
       }
@@ -33,7 +32,6 @@ export default function Home() {
         let dx = dt
           .map((d) => d.attributes)
           .map((d) => ({ text: d.name, value: d.name }));
-        console.log(dx);
         dx = [{ text: "All", value: "all" }, ...dx];
         setCourses(dx);
       }
@@ -235,7 +233,7 @@ export default function Home() {
               if (resp.ok) {
                 let data = await resp.json();
                 if (data && data.length > 0) {
-                  setTutors(data.map(d => ({tutor: d.attributes, distance: d.distance})))
+                  setTutors(data.map(d => ({tutor: d.attributes, distance: d.distance, currentLocation: d.currentLocation})))
                  
                 }
               }
