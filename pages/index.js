@@ -254,6 +254,7 @@ export default function Home() {
                   <Table.HeaderCell>Name</Table.HeaderCell>
                   <Table.HeaderCell>Phone</Table.HeaderCell>
                   <Table.HeaderCell>Email</Table.HeaderCell>
+                  <Table.HeaderCell>Subject</Table.HeaderCell>
                   <Table.HeaderCell>Distance</Table.HeaderCell>
                   <Table.HeaderCell>Directions</Table.HeaderCell>
                 </Table.Row>
@@ -267,6 +268,7 @@ export default function Home() {
                     </Table.Cell>
                     <Table.Cell>{people.tutor.mobile_phone}</Table.Cell>
                     <Table.Cell>{people.tutor.email}</Table.Cell>
+                    <Table.Cell>{people.tutor.subject}</Table.Cell>
                     <Table.Cell>
                       {Math.round(people.distance * 100) / 100} km
                     </Table.Cell>
