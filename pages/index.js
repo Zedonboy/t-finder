@@ -268,7 +268,7 @@ export default function Home() {
                     </Table.Cell>
                     <Table.Cell>{people.tutor.mobile_phone}</Table.Cell>
                     <Table.Cell>{people.tutor.email}</Table.Cell>
-                    <Table.Cell>{people.tutor.subject}</Table.Cell>
+                    <Table.Cell>{people.tutor.subjects}</Table.Cell>
                     <Table.Cell>
                       {Math.round(people.distance * 100) / 100} km
                     </Table.Cell>
