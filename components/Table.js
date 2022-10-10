@@ -1,4 +1,8 @@
+import { useRouter } from "next/router";
+
 export default function JobBoardTable({jobs}) {
+
+  let router = useRouter()
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -84,7 +88,9 @@ export default function JobBoardTable({jobs}) {
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {jobs.map((job, i) => (
-                    <tr key={i}>
+                    <tr onClick={e => {
+                      router.push(`/job/${job.id}`)
+                    }} className="cursor-pointer" key={i}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                         {job.id}
                       </td>

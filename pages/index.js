@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Dropdown, Input, Table } from "semantic-ui-react";
 import { API_URL } from "../config";
+import "semantic-ui-css/semantic.min.css";
 const qs = require("qs")
 const INITIAL_STATE = {
   subject: "",
