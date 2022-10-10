@@ -10,7 +10,7 @@ export default function Job({job}) {
               Job Information
             </h3>
             <p className="mt-1 text-sm text-gray-500">
-             Job #{job.id} {job.attributes.active ? (<span class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Open</span>) : (<span className="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Closed</span>)}
+             Job #{job.id} {job.attributes.active ? (<span className="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Open</span>) : (<span className="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Closed</span>)}
             </p>
           </div>
           <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
