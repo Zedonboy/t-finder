@@ -1,3 +1,5 @@
+import AvalabilityCard from "../../components/AvailabilityCard";
+import MaterialCard from "../../components/MaterailCard";
 import { API_URL } from "../../config";
 
 export default function Job({job}) {
@@ -134,10 +136,34 @@ export default function Job({job}) {
               </div>
             </div>
 
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="last-name"
+                className="block text-lg font-medium text-gray-700"
+              >
+                Availability
+              </label>
+              <div className="mt-1 grid grid-cols-3 gap-2">
+                {job?.attributes?.avaliability?.map(d => (<AvalabilityCard day={d.day} from={d.from} to={d.to}/>))}
+              </div>
+            </div>
+
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="last-name"
+                className="block text-lg font-medium text-gray-700"
+              >
+                Materials
+              </label>
+              <div className="mt-1 grid grid-cols-3 gap-2">
+                {job?.attributes?.material?.data?.map(d => (<MaterialCard url={d.attributes.url} name={d.attributes.name}/>))}
+              </div>
+            </div>
+
             <div className="sm:col-span-6">
               <label
                 htmlFor="comment"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-lg font-medium text-gray-700"
               >
                 Student Summary
               </label>
@@ -162,7 +188,7 @@ export async function getServerSideProps(ctx) {
         }
     }
 
-    let resp = await fetch(`${API_URL}/jobs/${id}`)
+    let resp = await fetch(`${API_URL}/jobs/${id}?populate=*`)
     if(resp.ok) {
         let data = await resp.json()
         
