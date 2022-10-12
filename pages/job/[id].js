@@ -144,7 +144,7 @@ export default function Job({job}) {
                 Availability
               </label>
               <div className="mt-1 grid grid-cols-3 gap-2">
-                {job?.attributes?.avaliability?.map(d => (<AvalabilityCard day={d.day} from={d.from} to={d.to}/>))}
+                {job?.attributes?.avaliability?.map((d,i) => (<AvalabilityCard key={i} day={d.day} from={d.from} to={d.to}/>))}
               </div>
             </div>
 
@@ -156,7 +156,7 @@ export default function Job({job}) {
                 Materials
               </label>
               <div className="mt-1 grid grid-cols-3 gap-2">
-                {job?.attributes?.material?.data?.map(d => (<MaterialCard url={d.attributes.url} name={d.attributes.name}/>))}
+                {job?.attributes?.material?.data?.map((d,i) => (<MaterialCard key={i} url={d.attributes.url} name={d.attributes.name}/>))}
               </div>
             </div>
 
