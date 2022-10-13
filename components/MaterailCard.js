@@ -1,7 +1,7 @@
 
 export default function MaterialCard({name, url}) {
     return (
-      <a href={url} rel="noreferrer" target="_blank" className="border-2 overflow-clip border-indigo-600 hover:text-indigo-500 flex items-center justify-between rounded-md p-4 ">
+      <a href={url} rel="noreferrer" target="_blank" className="border-2 border-indigo-600 hover:text-indigo-500 flex items-center justify-between rounded-md p-4 ">
         <div>
           {name}
         </div>
