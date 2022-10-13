@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button, Dropdown, Input, Table } from "semantic-ui-react";
 import { API_URL } from "../config";
 import "semantic-ui-css/semantic.min.css";
+import Hero from "../components/Hero";
 const qs = require("qs")
 const INITIAL_STATE = {
   subject: "",
@@ -48,6 +49,10 @@ export default function Home() {
   let [courses, setCourses] = useState([]);
   let [state, setState] = useState(INITIAL_STATE);
   let ref = useRef();
+
+  return (
+  <Hero/>
+  )
   return (
     <>
       {/* <main className="h-screen w-full relative">
