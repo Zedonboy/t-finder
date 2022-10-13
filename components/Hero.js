@@ -1,4 +1,3 @@
-
 export default function Hero() {
   return (
     <div className="relative overflow-hidden h-screen flex justify-center items-center w-screen bg-gray-50">
