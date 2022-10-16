@@ -1,8 +1,11 @@
+import { useRouter } from "next/router";
 import AvalabilityCard from "../../components/AvailabilityCard";
 import MaterialCard from "../../components/MaterailCard";
 import { API_URL } from "../../config";
 
 export default function Job({job}) {
+  let router = useRouter()
+  let id = router.query.id
   return (
     <section className="container mx-auto px-4">
       <form>
@@ -15,6 +18,12 @@ export default function Job({job}) {
              Job #{job.id} {job.attributes.active ? (<span className="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Open</span>) : (<span className="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Closed</span>)}
             </p>
           </div>
+          <a
+        href={`/apply/${id}`}
+        className="inline-flex mt-8 items-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        Apply
+      </a>
           <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div className="sm:col-span-3">
               <label
