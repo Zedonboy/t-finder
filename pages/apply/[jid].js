@@ -282,6 +282,9 @@ export default function ApplyJob() {
                   type="text"
                   name="first-name"
                   id="first-name"
+                  onChange={e => {
+                    setTutor({...tutor, firstName: e.target.value})
+                  }}
                   value={tutor.firstName}
                   autoComplete="given-name"
                   className="block w-full rounded-md disabled:bg-gray-100 border-gray-300 py-3 px-4 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
@@ -301,6 +304,9 @@ export default function ApplyJob() {
                   type="text"
                   name="last-name"
                   id="last-name"
+                  onChange={e => {
+                    setTutor({...tutor, lastName: e.target.value})
+                  }}
                   value={tutor.lastName}
                   autoComplete="family-name"
                   className="block w-full disabled:bg-gray-100 rounded-md border-gray-300 py-3 px-4 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
