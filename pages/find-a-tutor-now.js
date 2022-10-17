@@ -260,6 +260,7 @@ export default function Home() {
                   <Table.HeaderCell>Subject</Table.HeaderCell>
                   <Table.HeaderCell>Distance</Table.HeaderCell>
                   <Table.HeaderCell>Directions</Table.HeaderCell>
+                  <Table.HeaderCell>Vehicle</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
 
@@ -274,6 +275,9 @@ export default function Home() {
                     <Table.Cell>{people.tutor.subjects}</Table.Cell>
                     <Table.Cell>
                       {Math.round(people.distance * 100) / 100} km
+                    </Table.Cell>
+                    <Table.Cell>
+                     {people.tutor["vehicle_possession"] ?people.tutor["vehicle_possession"] : "None" }
                     </Table.Cell>
                     <Table.Cell>
                       <Button
