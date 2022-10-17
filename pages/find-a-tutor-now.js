@@ -259,8 +259,8 @@ export default function Home() {
                   <Table.HeaderCell>Email</Table.HeaderCell>
                   <Table.HeaderCell>Subject</Table.HeaderCell>
                   <Table.HeaderCell>Distance</Table.HeaderCell>
-                  <Table.HeaderCell>Directions</Table.HeaderCell>
                   <Table.HeaderCell>Vehicle</Table.HeaderCell>
+                  <Table.HeaderCell>Directions</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
 
