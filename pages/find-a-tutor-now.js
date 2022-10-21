@@ -330,8 +330,8 @@ export default function Home() {
                               {subjects.length === 0 ? (
                                 <option defaultChecked>Loading</option>
                               ) : null}
-                              {subjects?.map((v) => (
-                                <option value={v.value}>{v.text}</option>
+                              {subjects?.map((v, i) => (
+                                <option key={i} value={v.value}>{v.text}</option>
                               ))}
                             </select>
                           </div>
@@ -352,8 +352,8 @@ export default function Home() {
                               {courses.length === 0 ? (
                                 <option defaultChecked>Loading</option>
                               ) : null}
-                              {courses?.map((v) => (
-                                <option value={v.value}>{v.text}</option>
+                              {courses?.map((v, i) => (
+                                <option key={i} value={v.value}>{v.text}</option>
                               ))}
                             </select>
                           </div>
