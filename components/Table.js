@@ -92,7 +92,18 @@ export default function JobBoardTable({jobs}) {
                       router.push(`/job/${job.id}`)
                     }} className="cursor-pointer" key={i}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                        {job.id}
+                        {job.id}{function(){
+                          let createdDate = new Date(job.attributes.updatedAt)
+                          let today = new Date()
+
+                          let diff = today - createdDate
+
+                          if(diff > (72 * 3600 * 1000)) {
+                            return null
+                          } else {
+                            return <span className="bg-red-500 text-white text-xs ml-1 px-1 rounded-full">new</span>
+                          }
+                        }()}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         { new Date(job.attributes.updatedAt).toDateString()}
