@@ -1,1 +1,1 @@
-export const API_URL = process.env.NODE_ENV === "production" ? "http://http://tutorfinder-env.eba-kndwqegm.us-east-1.elasticbeanstalk.com/api" : "http://localhost:1337/api"
+export const API_URL = process.env.NODE_ENV === "production" ? "https://finder.tutor1.ca/api" : "http://localhost:1337/api"
